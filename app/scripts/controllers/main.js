@@ -57,24 +57,18 @@ angular.module('typetestApp')
      * @param keyCode
        */
     var handleKey = function(keyCode){
-      console.log("handling key", keyCode);
-
-
+      //console.log("handling key", keyCode);
       if (keyCode === KEYCODE.RETURN){
-
         if ($scope.finished){
           $scope.restartTest();
         }
-
         return;
       }
-
       if ($scope.finished){
         return;
       }
 
       var char;
-
       if (keyCode === KEYCODE.BACKSPACE) { //backspace
         if ($scope.charIndex){
           delete $scope.typedWords[$scope.wordIndex][$scope.charIndex];
@@ -83,7 +77,6 @@ angular.module('typetestApp')
           delete $scope.typedWords[$scope.wordIndex];
           $scope.wordIndex--;
           $scope.charIndex = $scope.words[$scope.wordIndex].length -1
-
         }
 
         $scope.$apply();
@@ -97,7 +90,7 @@ angular.module('typetestApp')
       }
 
       if (!$scope.typedWords[$scope.wordIndex]) {
-        console.log("inserting char", $scope.charIndex)
+        //console.log("inserting char", $scope.charIndex)
         $scope.typedWords[$scope.wordIndex] = [];
       }
 
@@ -115,7 +108,7 @@ angular.module('typetestApp')
 
     }
     var getStats = function(){
-      console.log("typedWords", $scope.typedWords)
+      //console.log("typedWords", $scope.typedWords)
       return $scope.typedWords.map(function(chars, wordIndex){
         return chars.join("") === $scope.words[wordIndex]
       })
@@ -149,11 +142,21 @@ angular.module('typetestApp')
         $scope.startedAt = new Date();
         $scope.finished = false;
 
+        $scope.newHighScore = false;
         //Schedule a timeout at $scope.testLengthMs to finish the game and present the results
         $timeout(function(){
           console.log("test ended");
           $scope.finished = true;
-          $scope.measuredWPM = $scope.success * (60 / ($scope.testLengthMs / 1000))
+          $scope.measuredWPM = $scope.success * (60 / ($scope.testLengthMs / 1000));
+
+          //save score in localstorage
+          if ($scope.measuredWPM > $scope.highScore){
+            window.localStorage.setItem("highScore", $scope.measuredWPM);
+            $scope.highScore = $scope.measuredWPM;
+            $scope.newHighScore = true;
+          }
+
+
         }, $scope.testLengthMs)
       }
 
@@ -164,17 +167,20 @@ angular.module('typetestApp')
         $scope.success = stats.filter(function(item){ return item }).length
         $scope.failure = stats.filter(function(item){ return !item }).length
       }
-
-        console.log("wordIndex changed", newVal, stats);
+       // console.log("wordIndex changed", newVal, stats);
     });
 
-    $document.bind("keyup keypress", function(event) {
-      if ('keyup' === event.type && event.keyCode === 8
-        || 'keyup' === event.type && event.keyCode === 32
-        || 'keypress' === event.type && event.keyCode && event.keyCode !== 8 && event.keyCode !== 32) {
+    $document.bind("keydown keypress", function(event) {
+      if ('keydown' === event.type && event.keyCode === KEYCODE.BACKSPACE
+        || 'keydown' === event.type && event.keyCode === KEYCODE.SPACEBAR
+        || 'keypress' === event.type && event.keyCode && event.keyCode !== KEYCODE.BACKSPACE && event.keyCode !== KEYCODE.SPACEBAR) {
+
         handleKey(event.keyCode)
+        event.preventDefault();
       }
     });
+
+    $scope.highScore = window.localStorage.getItem("highScore") ? window.localStorage.getItem("highScore") : 0
 
     initWords();
     $timeout(tick, 100);
