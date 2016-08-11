@@ -106,6 +106,8 @@ body {
 .result {
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
+
 }
 .content .text.finished {
   opacity: 0.05;
@@ -197,6 +199,5 @@ input.text-input {
   cursor: pointer;
   user-select: none;
   background-image: none;
-
   border-radius: 4px;
 }

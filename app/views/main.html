@@ -33,13 +33,18 @@
     </div>
     <div>
       <span>{{(success && !finished) ? success * (60 / ( timeElapsed / 1000)) : measuredWPM | number : 1}}</span>
-      <small>Words per minute {{success}} {{failure}}</small>
+      <small>Words per minute</small>
     </div>
   </div>
 
   <div ng-show="finished" class="results">
-    <button class="btn btn-default" ng-click="restartTest()">I can do better!</button>
+    <p ng-show="newHighScore" class="text-center">New High score!</p>
+    <p class="text-center">Your highest score is {{highScore}}</p>
+
+
   </div>
+
+  <button ng-show="finished" class="btn btn-default text-center" ng-click="restartTest()">I can do better!</button>
 </div>
 
 
