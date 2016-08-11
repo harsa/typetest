@@ -10,9 +10,7 @@
  */
 angular
   .module('typetestApp', [
-    'ngAnimate',
     'ngRoute',
-    'ngSanitize'
   ])
   .config(function ($routeProvider) {
     $routeProvider

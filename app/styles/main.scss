@@ -1,6 +1,4 @@
-$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/";
 // bower:scss
-@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 .fill {
   position: absolute;
@@ -174,4 +172,31 @@ input.text-input {
   right: auto;
   bottom: auto;
 
+}
+/**
+  bootstrap styles
+*/
+
+.text-center {
+  text-align: center;
+}
+.btn-default {
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  touch-action: manipulation;
+  cursor: pointer;
+  user-select: none;
+  background-image: none;
+
+  border-radius: 4px;
 }
