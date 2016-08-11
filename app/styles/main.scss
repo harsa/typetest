@@ -36,6 +36,21 @@ body {
     margin-bottom: 3px;
     position: relative;
     border-radius: 2px;
+    span.error:last-child {
+      background: red;
+      display: inline-block;
+      width: 10px;
+      height: 3px;
+      position: absolute;
+      right: -5px;
+      bottom: 0;
+      /*
+      &:after {
+        content: "_";
+        color: black;
+      }
+      */
+    }
   }
   span.word.space {
     &:after {

@@ -24,7 +24,7 @@
       <small>charIndex</small>
     </div-->
     <div ng-show="wordIndex">
-      <span>{{success.length / wordIndex * 100 | number: 1}}<span class="unit">%</span></span>
+      <span>{{success / wordIndex * 100 | number: 1}}<span class="unit">%</span></span>
       <small>Accuracy</small>
     </div>
     <div ng-hide="finished">
@@ -32,8 +32,8 @@
       <small>Time remaining</small>
     </div>
     <div>
-      <span>{{(success.length && !finished) ? success.length * (60 / ( timeElapsed / 1000)) : measuredWPM | number : 1}}</span>
-      <small>Words per minute</small>
+      <span>{{(success && !finished) ? success * (60 / ( timeElapsed / 1000)) : measuredWPM | number : 1}}</span>
+      <small>Words per minute {{success}} {{failure}}</small>
     </div>
   </div>
 
