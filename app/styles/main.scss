@@ -37,33 +37,38 @@ body {
     position: relative;
     border-radius: 2px;
     span.error:last-child {
-      background: red;
       display: inline-block;
-      width: 10px;
-      height: 3px;
+      z-index: 10;
       position: absolute;
-      right: -5px;
-      bottom: 0;
-      /*
+      right: -10px;
+      //bottom: 0;
       &:after {
-        content: "_";
-        color: black;
+        width: 20px;
+        height: 20px;
+        content: "␣";
+        color: red;
+        z-index: 10;
       }
-      */
     }
+  }
+
+  span.word.space span.current:last-child {
+    display: none;
+
   }
   span.word.space {
     &:after {
       content: "";
       color: black;
       position: absolute;
-      bottom: 0;
-      width: 5px;
+      bottom: -2px;
+      width: 10px;
       background: black;
-      height: 3px;
+      height: 2px;
       right: -5px;
       overflow: hidden;
     }
+
   }
   span.word.success{
     background: #4cec99;

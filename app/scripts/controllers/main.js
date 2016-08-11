@@ -139,8 +139,6 @@ angular.module('typetestApp')
       initWords();
     }
 
-
-
     /*
     Detect user action by changes to active word & char
      */
