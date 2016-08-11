@@ -1,0 +1,45 @@
+<div class="header" ng-show="!finished && !startedAt">
+  <h2 class="text-center">Start typing!</h2>
+</div>
+<div class="content" >
+
+  <div class="text" ng-class="{finished: finished}">
+    <span ng-repeat="word in words" class="word" ng-class="{success: validation[$index], space: wordIndex === $index && charIndex +1  === word.length}">
+      <span ng-repeat="char in word track by $index" ng-class="{current: $parent.$index === wordIndex && $index === charIndex, error: typedWords[$parent.$index][$index] != words[$parent.$index][$index] && typedWords[$parent.$index][$index], traversed: $parent.$index < wordIndex || $parent.$index === wordIndex &&$index < charIndex }">{{char}}</span>
+    </span>
+  </div>
+</div>
+<div class="result fill">
+
+  <div ng-show="finished" class="results">
+    <h3>The results are in:</h3>
+  </div>
+  <div class="stats" ng-class="{finished: finished}">
+    <!--div>
+      <span>{{wordIndex}}</span>
+      <small>wordIndex</small>
+    </div>
+    <div>
+      <span>{{charIndex}}</span>
+      <small>charIndex</small>
+    </div-->
+    <div ng-show="wordIndex">
+      <span>{{success.length / wordIndex * 100 | number: 1}}<span class="unit">%</span></span>
+      <small>Accuracy</small>
+    </div>
+    <div ng-hide="finished">
+      <span>{{(testLengthMs - timeElapsed)  / 1000| number : 1}}<span class="unit">sec</span></span>
+      <small>Time remaining</small>
+    </div>
+    <div>
+      <span>{{(success.length && !finished) ? success.length * (60 / ( timeElapsed / 1000)) : measuredWPM | number : 1}}</span>
+      <small>Words per minute</small>
+    </div>
+  </div>
+
+  <div ng-show="finished" class="results">
+    <button class="btn btn-default" ng-click="restartTest()">I can do better!</button>
+  </div>
+</div>
+
+
