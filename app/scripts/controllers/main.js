@@ -107,6 +107,10 @@ angular.module('typetestApp')
       $scope.$apply();
 
     }
+    /**
+     * compares every typed character word by word to the correct words.
+     * @returns {Array} true if the word was right, otherwise false/**
+       */
     var getStats = function(){
       //console.log("typedWords", $scope.typedWords)
       return $scope.typedWords.map(function(chars, wordIndex){
@@ -114,16 +118,21 @@ angular.module('typetestApp')
       })
     }
 
+    /**
+     * Updates the timeElapsed value when the game is running
+     */
     var tick = function(){
       if ($scope.startedAt){
         $scope.timeElapsed = new Date().getTime() - $scope.startedAt.getTime()
       } else {
         $scope.timeElapsed = 0;
       }
-
       $timeout(tick, 100);
     }
 
+    /**
+     * Called when the user presses the "I can do better" -button
+     */
     $scope.restartTest = function(){
       $scope.finished = false;
       $scope.success = [];
@@ -167,9 +176,11 @@ angular.module('typetestApp')
         $scope.success = stats.filter(function(item){ return item }).length
         $scope.failure = stats.filter(function(item){ return !item }).length
       }
-       // console.log("wordIndex changed", newVal, stats);
     });
 
+    /**
+     * Catch and preventDefault on keystrokes
+     */
     $document.bind("keydown keypress", function(event) {
       if ('keydown' === event.type && event.keyCode === KEYCODE.BACKSPACE
         || 'keydown' === event.type && event.keyCode === KEYCODE.SPACEBAR
@@ -180,9 +191,13 @@ angular.module('typetestApp')
       }
     });
 
+    //get initial high-score from localhost
     $scope.highScore = window.localStorage.getItem("highScore") ? window.localStorage.getItem("highScore") : 0
 
+    //do initial setup
     initWords();
+
+    //init timer
     $timeout(tick, 100);
 
   });
